@@ -10,6 +10,9 @@
         "./bililive.js",
         "./modules/danmaku.js"
     ],
+    "styles": [
+        "./styles/bililive.css"
+    ],
     "languages": [
         {
             "lang": "en",

@@ -5,7 +5,7 @@
 
   "bililive.hpquery": "HP Query",
   "bililive.pcquery": "PC Query",
-  "bililive.pcquery-encumbrance": "Encumbrance",
+  "bililive.query.encumbrance": "Encumbrance",
 
   "bililive.settings.room.name": "Bilibili Live Room ID",
   "bililive.settings.room.hint": "Bilibili Live Room to sync danmaku.",
@@ -14,5 +14,7 @@
   "bililive.settings.danmakuPublic.name": "Public Danmaku Message",
   "bililive.settings.danmakuPublic.hint": "If checked, all players will be able to see the danmaku messages.",
   "bililive.settings.commandPublic.name": "Public Query Message",
-  "bililive.settings.commandPublic.hint": "If checked, all players will be able to see the query results."
+  "bililive.settings.commandPublic.hint": "If checked, all players will be able to see the query results.",
+
+  "bililive.roomId": "Live Room ID"
 }

@@ -3,13 +3,30 @@ const danmaku = {
     client: null,
     giftPublic: false,
     danmakuPublic: false,
-    commandPublic: false
+    commandPublic: false,
+    roomId: 0,
+    onDanmaku: onDanmaku,
+    onGift: onGift,
+    onCommand, onCommand
 };
 
 import { dnd5eCommand } from "./modules/dnd5e.js";
+export { danmaku };
 
 Hooks.on("init", () => registerSettings());
-Hooks.on("ready", () => setupDanmakuClient());
+Hooks.on("ready", () => {
+    setupDanmakuClient();
+    window.danmaku = danmaku;
+});
+
+Hooks.on("renderChatMessage", function (message, html, data) {
+    const type = message.getFlag("bililive", "type");
+    if (type) {
+        html.find(".message-sender").text("");
+        html.find(".whisper-to").text("");
+        html.find(".message-timestamp").hide();
+    }
+});
 
 function setupDanmakuClient() {
     try {
@@ -29,7 +46,7 @@ function setupDanmakuClient() {
 
     if (roomId > 0 && gm && game.user === gm) {
         console.log("Bililive | Living Room confirmed", roomId);
-
+        danmaku.roomId = roomId;
         danmaku.client = new DanmakuClient(roomId);
 
         danmaku.client.on("open", () => console.log("Bililive | listening Bilibili Danmaku..."));
@@ -52,10 +69,17 @@ function setupDanmakuClient() {
     }
 }
 
-function onDanmaku({ content, sender }) {
+async function onDanmaku({ content, sender }) {
+    const requestData = {
+        sender: sender.name,
+        content: content,
+        roomId: danmaku.roomId
+    };
+    const html = await renderTemplate("./modules/bililive/templates/danmakuMsg.html", requestData);
     const chatMessage = {
-        content: `<b>${sender.name}</b>: ${content}`,
+        content: html,
         type: 1,
+        flags: { "bililive": { type: "danmaku" }},
         speaker: ChatMessage.getSpeaker({ alias: game.i18n.localize("bililive.speaker") })
     };
 
@@ -66,10 +90,18 @@ function onDanmaku({ content, sender }) {
     ChatMessage.create(chatMessage);
 }
 
-function onGift({ gift, num, sender }) {
+async function onGift({ gift, num, sender }) {
+    const requestData = {
+        sender: sender.name,
+        gift: gift.name,
+        num: num,
+        roomId: danmaku.roomId
+    };
+    const html = await renderTemplate("./modules/bililive/templates/giftMsg.html", requestData);
     const chatMessage = {
-        content: `<b>${sender.name}</b>: ${gift.name} * ${num}`,
+        content: html,
         type: 1,
+        flags: { "bililive": { type: "gift" }},
         speaker: ChatMessage.getSpeaker({ alias: game.i18n.localize("bililive.donar") })
     };
 
@@ -80,12 +112,12 @@ function onGift({ gift, num, sender }) {
     ChatMessage.create(chatMessage);
 }
 
-function onCommand({ content, sender }) {
+async function onCommand({ content, sender }) {
     let msg = "";
     switch (game.system.data.name) {
         case "dnd5e":
             // D&D 5e only currently.
-            msg = dnd5eCommand({ content: content?.slice(1), sender: sender });
+            msg = await dnd5eCommand({ content: content?.slice(1), sender: sender });
             break;
     }
 
@@ -93,6 +125,7 @@ function onCommand({ content, sender }) {
         const chatMessage = {
             content: msg,
             type: 1,
+            flags: { "bililive": { type: "danmaku" }},
             speaker: ChatMessage.getSpeaker({ alias: game.i18n.localize("bililive.command") })
         };
 

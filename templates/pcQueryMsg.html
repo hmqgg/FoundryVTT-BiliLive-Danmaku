@@ -1,0 +1,139 @@
+<div class="bililive query chat-card item-card">
+    <header class="card-header flexrow">
+        <h3 class="item-name">{{localize 'bililive.pcquery'}}</h3>
+        <div class="item-controls flexrow" style="text-align:right;">
+            <h3>{{sender}}</h3>
+        </div>
+    </header>
+    <div class="message-content" style="margin:5px 0px;">
+        <div class="card-content"></div>
+	    <div class="form-group sheet actor">
+            <ol class="items-list inventory-list">
+                <li class="items-header flexrow">
+                    <div class="item-name flexrow">
+                        <div class="item-image" style="background-image: url('{{actor.data.img}}')"></div>
+                        <h3>{{actor.data.name}}</h3>
+                    </div>
+                </li>
+
+                <ol class="item-list">
+                    <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                        <div class="item-name flexrow">
+                            <h4>{{localize 'ITEM.TypeClass'}}</h4>
+                        </div>
+                        <div class="flexrow">
+                            {{class}}
+                        </div>
+                    </div></div></li>
+                    <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                        <div class="item-name flexrow">
+                            <h4>{{localize 'DND5E.Race'}}</h4>
+                        </div>
+                        <div class="flexrow">
+                            {{actor.data.data.details.race}}
+                        </div>
+                    </div></div></li>
+                    <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                        <div class="item-name flexrow">
+                            <h4>{{localize 'DND5E.HP'}}</h4>
+                        </div>
+                        <div class="dice-total hp-result flexrow">
+                            {{hp}}/{{hpMax}}
+                        </div>
+                    </div></div></li>
+                    <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                        <div class="item-name flexrow">
+                            <h4>{{localize 'DND5E.AC'}}</h4>
+                        </div>
+                        <div class="dice-total hp-result flexrow">
+                            {{actor.data.data.attributes.ac.value}}
+                        </div>
+                    </div></div></li>
+                    <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                        <div class="item-name flexrow">
+                            <h4>{{localize 'DND5E.Speed'}}</h4>
+                        </div>
+                        <div class="dice-total hp-result flexrow">
+                            {{actor.data.data.attributes.movement.walk}} {{actor.data.data.attributes.movement.units}}
+                        </div>
+                    </div></div></li>
+                    {{#if actor.data.data.attributes.senses.darkvision}}
+                        <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                            <div class="item-name flexrow">
+                                <h4>{{localize 'DND5E.SenseDarkvision'}}</h4>
+                            </div>
+                            <div class="dice-total hp-result flexrow">
+                                {{actor.data.data.attributes.senses.darkvision}} {{actor.data.data.attributes.senses.units}}
+                            </div>
+                        </div></div></li>
+                    {{/if}}
+                    {{#if actor.data.data.spells.pact.max}}
+                        <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                            <div class="item-name flexrow">
+                                <h4>{{localize 'DND5E.SpellLevelPact'}} ({{actor.data.data.spells.pact.level}})</h4>
+                            </div>
+                            <div class="dice-total hp-result flexrow">
+                                {{actor.data.data.spells.pact.value}}/{{actor.data.data.spells.pact.max}}
+                            </div>
+                        </div></div></li>
+                    {{/if}}
+                    {{#each slots}}
+                        {{#if this.max}}{{#if this.value}}
+                            <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                                <div class="item-name flexrow">
+                                    <h4>{{localize 'DND5E.spell'}} ({{localize this.level}})</h4>
+                                </div>
+                                <div class="dice-total hp-result flexrow">
+                                    {{this.value}}/{{this.max}}
+                                </div>
+                            </div></div></li>
+                        {{/if}}{{/if}}
+                    {{/each}}
+                    {{#each resources}}
+                        {{#if this.max}}{{#if this.label}}
+                        <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                            <div class="item-name flexrow">
+                                <h4>{{this.label}} ({{#if this.sr}}{{localize 'DND5E.RestS'}}{{/if}}{{#if this.sr}}{{#if this.lr}}/{{/if}}{{/if}}{{#if this.lr}}{{localize 'DND5E.RestL'}}{{/if}})</h4>
+                            </div>
+                            <div class="dice-total hp-result flexrow">
+                                {{this.value}}/{{this.max}}
+                            </div>
+                        </div></div></li>
+                        {{/if}}{{/if}}
+                    {{/each}}
+                    {{#if gp}}
+                        <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                            <div class="item-name flexrow">
+                                <h4>{{localize 'DND5E.Currency'}}</h4>
+                            </div>
+                            <div class="dice-total hp-result flexrow">
+                                {{gp}} {{localize 'DND5E.CurrencyGP'}}
+                            </div>
+                        </div></div></li>
+                    {{/if}}
+                    <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                        <div class="item-name flexrow">
+                            <h4>{{localize 'bililive.query.encumbrance'}}</h4>
+                        </div>
+                        <div class="dice-total hp-result flexrow">
+                            {{encumbrance}}/{{encumbranceMax}} lbs
+                        </div>
+                    </div></div></li>
+                    {{#if actor.data.data.attributes.exhaustion}}
+                        <li class="item flexrow"><div class="dice-roll flexcol"><div class="item-row flexrow">
+                            <div class="item-name flexrow">
+                                <h4>{{localize 'DND5E.Exhaustion'}}</h4>
+                            </div>
+                            <div class="dice-total hp-result flexrow">
+                                {{actor.data.data.attributes.exhaustion}}
+                            </div>
+                        </div></div></li>
+                    {{/if}}
+                </ol>
+            </ol>
+        </div>
+    </div>
+    <footer class="card-footer">
+        <span> {{localize 'bililive.roomId'}}: <span class="room-id">{{roomId}}</span></span>
+    </footer>
+</div>
