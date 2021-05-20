@@ -6,6 +6,7 @@
   "bililive.hpquery": "查看 HP",
   "bililive.pcquery": "查看角色",
   "bililive.query.encumbrance": "负重",
+  "bililive.query.noSubclass": "本职",
 
   "bililive.settings.room.name": "哔哩哔哩直播间 ID",
   "bililive.settings.room.hint": "哔哩哔哩直播间的真实房间号，并非用户 UID",

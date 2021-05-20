@@ -67,11 +67,13 @@ async function queryPc(sender, pc) {
     if (pc.data.data.attributes.hp.tempmax) {
         hpMax += `+${pc.data.data.attributes.hp.tempmax}`;
     }
-    let classText = pc.items.filter(x => x.type === "class").map(x => `${x.name} (${x.data.data.subclass})`).join(", ");
+    const level = pc.items.filter(x => x.type === "class").reduce((x, y) => x + y.data.data.levels, 0) || 0;
+    let classText = pc.items.filter(x => x.type === "class").map(x => `${x.name} ${x.data.data.levels} (${x.data.data.subclass || game.i18n.localize("bililive.query.noSubclass")})`).join(", ");
     const gp = pc.data.data.currency.pp * 10 + pc.data.data.currency.gp + pc.data.data.currency.pp * 0.5 + pc.data.data.currency.ep * 0.1;
     const requestData = {
         sender: sender.name,
         actor: pc,
+        level: level,
         class: classText,
         hp: hp,
         hpMax: hpMax,

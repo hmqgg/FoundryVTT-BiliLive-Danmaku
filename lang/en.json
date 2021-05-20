@@ -6,6 +6,7 @@
   "bililive.hpquery": "HP Query",
   "bililive.pcquery": "PC Query",
   "bililive.query.encumbrance": "Encumbrance",
+  "bililive.query.noSubclass": "Pure",
 
   "bililive.settings.room.name": "Bilibili Live Room ID",
   "bililive.settings.room.hint": "Bilibili Live Room to sync danmaku.",
