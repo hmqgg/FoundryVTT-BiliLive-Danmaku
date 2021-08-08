@@ -16,6 +16,10 @@
   "bililive.settings.danmakuPublic.hint": "If checked, all players will be able to see the danmaku messages.",
   "bililive.settings.commandPublic.name": "Public Query Message",
   "bililive.settings.commandPublic.hint": "If checked, all players will be able to see the query results.",
+  "bililive.settings.profanityFilter.name": "Danmaku Profanity Filter",
+  "bililive.settings.profanityFilter.hint": "（Split by Space）If a danmaku content contains any one of these words, it would be ignored.",
+  "bililive.settings.senderFilter.name": "Sender Filter",
+  "bililive.settings.senderFilter.hint": "（Split by Space）If the sender of a danmaku is listed below, their operation would be ignored.",
 
   "bililive.roomId": "Live Room ID"
 }

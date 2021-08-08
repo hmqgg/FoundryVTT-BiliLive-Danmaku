@@ -4,6 +4,8 @@ const danmaku = {
     giftPublic: false,
     danmakuPublic: false,
     commandPublic: false,
+    profanityFilter: [],
+    senderFilter: [],
     roomId: 0,
     onDanmaku: onDanmaku,
     onGift: onGift,
@@ -19,7 +21,7 @@ Hooks.on("ready", () => {
     window.danmaku = danmaku;
 });
 
-Hooks.on("renderChatMessage", function (message, html, data) {
+Hooks.on("renderChatMessage", function (message, html, _) {
     const type = message.getFlag("bililive", "type");
     if (type) {
         html.find(".message-sender").text("");
@@ -40,6 +42,8 @@ function setupDanmakuClient() {
     danmaku.giftPublic = Boolean(getSetting("giftPublic")) || false;
     danmaku.danmakuPublic = Boolean(getSetting("danmakuPublic")) || false;
     danmaku.commandPublic = Boolean(getSetting("commandPublic")) || false;
+    danmaku.profanityFilter = (getSetting("profanityFilter") || "").split(' ').filter(f => f) || [];
+    danmaku.senderFilter = (getSetting("senderFilter") || "").split(' ').filter(f => f) || [];
 
     // Get Main GM.
     const gm = game.users.find(u => u.isGM && u.active);
@@ -49,11 +53,15 @@ function setupDanmakuClient() {
         danmaku.roomId = roomId;
         danmaku.client = new DanmakuClient(roomId);
 
-        danmaku.client.on("open", () => console.log("Bililive | listening Bilibili Danmaku..."));
+        danmaku.client.on("open", () => console.log("Bililive | Listening Bilibili Danmaku..."));
         danmaku.client.on("close", () => console.log("Bililive | Terminated Bilibili Danmaku."));
 
         // Danmaku event dispatcher.
         danmaku.client.on("event", ({ name, content }) => {
+            if (danmaku.senderFilter.includes(content.sender || "")) {
+                return;
+            }
+
             if (name === "danmaku") {
                 if (content.content?.startsWith("/")) {
                     onCommand(content);
@@ -70,6 +78,10 @@ function setupDanmakuClient() {
 }
 
 async function onDanmaku({ content, sender }) {
+    if (danmaku.profanityFilter.some(f => content.includes(f))) {
+        return;
+    }
+
     const requestData = {
         sender: sender.name,
         content: content,
@@ -188,6 +200,28 @@ function registerSettings() {
                 config: true,
                 type: Boolean,
                 default: false
+            }
+        },
+        {
+            key: "profanityFilter",
+            options: {
+                name: game.i18n.localize("bililive.settings.profanityFilter.name"),
+                hint: game.i18n.localize("bililive.settings.profanityFilter.hint"),
+                scope: "world",
+                config: true,
+                type: String,
+                default: ""
+            }
+        },
+        {
+            key: "senderFilter",
+            options: {
+                name: game.i18n.localize("bililive.settings.senderFilter.name"),
+                hint: game.i18n.localize("bililive.settings.senderFilter.hint"),
+                scope: "world",
+                config: true,
+                type: String,
+                default: ""
             }
         },
     ];

@@ -16,6 +16,10 @@
   "bililive.settings.danmakuPublic.hint": "开启后，所有连线玩家都可以看到弹幕消息",
   "bililive.settings.commandPublic.name": "查询结果公开发送",
   "bililive.settings.commandPublic.hint": "开启后，所有连线玩家都可以看到弹幕查询指令的结果",
+  "bililive.settings.profanityFilter.name": "弹幕内容过滤器",
+  "bililive.settings.profanityFilter.hint": "（空格分隔）如果弹幕内容包含填写的任意一个字词，消息将不会被同步到 FVTT 中",
+  "bililive.settings.senderFilter.name": "弹幕发送者过滤器",
+  "bililive.settings.senderFilter.hint": "（空格分隔）名称列在下面的弹幕发送者的操作，将不会被同步到 FVTT 中",
 
   "bililive.roomId": "直播间 ID"
 }
