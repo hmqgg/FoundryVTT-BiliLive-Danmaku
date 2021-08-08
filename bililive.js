@@ -58,7 +58,7 @@ function setupDanmakuClient() {
 
         // Danmaku event dispatcher.
         danmaku.client.on("event", ({ name, content }) => {
-            if (danmaku.senderFilter.includes(content.sender || "")) {
+            if (danmaku.senderFilter.includes(content.sender?.name || "")) {
                 return;
             }
 
