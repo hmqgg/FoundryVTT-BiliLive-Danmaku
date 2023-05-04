@@ -10,11 +10,9 @@
 ## 核心功能
 在 MOD 设置里设定哔哩哔哩直播房间号，之后 GM 在房间中时，每一条弹幕和礼物消息都会同步到 FVTT 中。
 
-对于部分系统比如 D&D5e，该 MOD 同样支持发送查询指令（`/HP`, `/PC`），这些指令将会以超游聊天消息的形式，返回查询的结果。如果你同时直播 `/stream` 页面的内容，观众就可以实时看到他们想要知道的信息。 
+对于部分系统比如 D&D5e，该模组同样支持发送查询指令（`/HP`, `/PC`），这些指令将会以超游聊天消息的形式，返回查询的结果。如果你同时直播 `/stream` 页面的内容，观众就可以实时看到他们想要知道的信息。 
 
 ## 安装
-新功能将于[爱发电](https://afdian.net/@mitch)**提前**发布。
-
 - 清单文件地址：https://github.com/fvtt-cn/FoundryVTT-BiliLive-Danmaku/releases/latest/download/module.json
 - 在 Foundry VTT MOD 管理器中搜索: `bililive`
 
@@ -22,9 +20,6 @@
 
 ## 演示
 ![Demo](./.github/demo.gif)
-
-## 赞助
-如果希望继续支持该 MOD 的开发以及我的 FVTT 社群工作，可以在[爱发电](https://afdian.net/@mitch)支持该项目，将获得该项目 Early Access 版本。
 
 ## 作者
 - [hmqgg](https://github.com/hmqgg) from [FVTT-CN](https://github.com/fvtt-cn)
