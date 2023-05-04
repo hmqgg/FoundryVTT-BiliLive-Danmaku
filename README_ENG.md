@@ -21,9 +21,6 @@ Recommend you use [Tabbed ChatLog (FVTT Fork)](https://github.com/fvtt-cn/Foundr
 ## Demo
 ![Demo](./.github/demo.gif)
 
-## Donation
-If you'd like buy me a coffee, you could support this module on [AFDian](https://afdian.net/@mitch).
-
 ## Contributors
 - [hmqgg](https://github.com/hmqgg) from [FVTT-CN](https://github.com/fvtt-cn)
 
